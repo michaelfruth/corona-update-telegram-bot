@@ -1,0 +1,4 @@
+{
+  "telegramToken": "<YOUR-TOKEN>",
+  "databaseDirectory": "database"
+}

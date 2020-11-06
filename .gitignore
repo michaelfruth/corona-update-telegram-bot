@@ -1,4 +1,5 @@
 database
+databaseTest
 .idea
 /production_config.json
 /test_config.json

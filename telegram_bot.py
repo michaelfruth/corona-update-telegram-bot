@@ -1,6 +1,7 @@
 import logging
 
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
+from telegram import ParseMode
 
 import corona
 import user
@@ -41,14 +42,17 @@ def _search(update, context):
         update.message.reply_text("No cities or areas found for '{}'".format(found_cities))
         return
 
-    reply_text = "Cities and areas found:\n\n"
+    found_cities.sort(key=lambda d: d[corona.C_OBJECT_ID])
 
-    cities_formatted = [corona.city_info(data) for data in found_cities]
-    reply_text += "\n".join(cities_formatted)
+    cities_formatted = "\n".join([corona.short_city_info(data) for data in found_cities])
 
-    reply_text += "\n\n"
-    reply_text += "Please use '/sub <ID>' to subscribe to a city or an area."
-    update.message.reply_text(reply_text)
+    reply_text = "Cities and areas found:\n" \
+                 "\n" \
+                 "{}\n" \
+                 "\n" \
+                 "Please use '/sub &lt;ID&gt;' to subscribe to a city or an area.".format(cities_formatted)
+
+    update.message.reply_html(reply_text)
 
 
 def remove(update, context):
@@ -94,21 +98,17 @@ def _info(update, context):
     chat_id = update.message.chat_id
     cities = user.all_cities(chat_id)
 
-    reply_text = ""
     if len(cities) == 0:
-        reply_text += "No cities or areas are added yet."
+        reply_html = "No cities or areas are added yet."
     else:
-        reply_text += "Registered cities and areas:\n\n"
-        for city in cities:
-            reply_text += corona.full_info(city)
-            reply_text += "\n\n"
+        reply_html = corona.full_info(cities)
 
-    update.message.reply_text(reply_text)
+    update.message.reply_html(reply_html)
 
 
 def send_message(chat_id, message):
     if _updater:
-        _updater.bot.send_message(chat_id=chat_id, text=message)
+        _updater.bot.send_message(chat_id=chat_id, text=message, parse_mode=ParseMode.HTML)
 
 
 def init():

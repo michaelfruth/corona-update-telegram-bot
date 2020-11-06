@@ -165,6 +165,8 @@ def _info(update, context):
 def send_message(chat_id, message):
     if _updater:
         _updater.bot.send_message(chat_id=chat_id, text=message, parse_mode=ParseMode.HTML)
+    else:
+        raise NotImplementedError("Initialize this module first!")
 
 
 def init():

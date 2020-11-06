@@ -129,7 +129,7 @@ def full_info(data):
     cities_info = "\n\n".join([full_city_info(d) for d in sorted_data])
     cities_info = "<u>Cities/Areas</u>:\n" + cities_info
 
-    landscape_quick_info = city_landscape_quick_info(data)
+    landscape_quick_info = city_landscape_quick_info(sorted_data)
 
     info = "{}\n\n{}\n\n{}".format(states_info, cities_info, landscape_quick_info)
 

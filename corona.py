@@ -122,7 +122,7 @@ def full_info(data):
     if not isinstance(data, list):
         data = [data]
 
-    sorted_data = sorted(data, key=lambda x: x[C_OBJECT_ID])
+    sorted_data = sorted(data, key=lambda x: x[C_CITY_AREA])
 
     states_info = full_states_info(sorted_data)
 

@@ -42,7 +42,7 @@ def _search(update, context):
         update.message.reply_text("No cities or areas found for '{}'".format(found_cities))
         return
 
-    found_cities.sort(key=lambda d: d[corona.C_OBJECT_ID])
+    found_cities.sort(key=lambda d: d[corona.C_CITY_AREA])
 
     cities_formatted = "\n".join([corona.short_city_info(data) for data in found_cities])
 

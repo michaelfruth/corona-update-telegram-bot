@@ -1,6 +1,7 @@
 database
 .idea
-/local_config.json
+/production_config.json
+/test_config.json
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

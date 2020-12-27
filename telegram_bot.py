@@ -168,7 +168,7 @@ def send_message(chat_id, message):
         try:
             _updater.bot.send_message(chat_id=chat_id, text=message, parse_mode=ParseMode.HTML)
         except Unauthorized as e:
-            print(e)
+            print("{}: {}".format(chat_id, str(e)))
     else:
         raise NotImplementedError("Initialize this module first!")
 

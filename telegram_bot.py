@@ -1,5 +1,6 @@
 import logging
 
+from telegram.error import  Unauthorized
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
 from telegram import ParseMode
 
@@ -162,7 +163,10 @@ def _info(update, context):
 
 def send_message(chat_id, message):
     if _updater:
-        _updater.bot.send_message(chat_id=chat_id, text=message, parse_mode=ParseMode.HTML)
+        try:
+            _updater.bot.send_message(chat_id=chat_id, text=message, parse_mode=ParseMode.HTML)
+        except Unauthorized as e:
+            print(e)
     else:
         raise NotImplementedError("Initialize this module first!")
 

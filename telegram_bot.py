@@ -1,6 +1,6 @@
 import logging
 
-from telegram.error import  Unauthorized
+from telegram.error import Unauthorized
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
 from telegram import ParseMode
 
@@ -84,13 +84,14 @@ def _search(update, context):
         return
 
     search_city = " ".join(context.args)
-    found_cities = corona.find_city(search_city)
 
+    found_cities = corona.find_city(search_city)
     if len(found_cities) == 0:
         update.message.reply_text("No cities or areas found for '{}'".format(found_cities))
         return
 
     found_cities.sort(key=lambda d: d[corona.C_CITY_AREA])
+
     cities_formatted = "\n".join([corona.short_city_info(data) for data in found_cities])
 
     reply_text = "Cities and areas found:\n" \
@@ -122,6 +123,7 @@ def remove(update, context):
 
 def _delete(update, context):
     chat_id = update.message.chat_id
+
     if user.delete(chat_id):
         reply_text = "Deleted all of your data. You will no longer receive notifications.\n"
         reply_text += "You can turn the bot back on by sending /start.\n\n"

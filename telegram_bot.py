@@ -1,6 +1,6 @@
 import logging
 
-from telegram.error import Unauthorized, Timeout
+from telegram.error import Unauthorized, TimedOut
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
 from telegram import ParseMode
 
@@ -167,7 +167,7 @@ def send_message(chat_id, message):
     if _updater:
         try:
             _updater.bot.send_message(chat_id=chat_id, text=message, parse_mode=ParseMode.HTML)
-        except (Unauthorized, Timeout) as e:
+        except (Unauthorized, TimedOut) as e:
             print("{}: {}".format(chat_id, str(e)))
     else:
         raise NotImplementedError("Initialize this module first!")
